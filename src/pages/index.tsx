@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useState, useRef, FormEvent } from 'react';
 
-import firebase from "firebase/app";
 import { initializeApp } from 'firebase/app';
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { getFirestore, collection, query, limit, orderBy, doc, setDoc, addDoc, Timestamp, DocumentData } from 'firebase/firestore';
@@ -34,7 +33,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section>
+      <section className='bg-blue-500'>
         <p>{user?.email}</p>
         { user ? <ChatRoom /> : <SignIn />}
       </section>
