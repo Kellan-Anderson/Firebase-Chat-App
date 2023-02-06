@@ -1,16 +1,12 @@
 import Head from 'next/head'
 
 import { initializeApp } from 'firebase/app';
-
 import { getAuth } from 'firebase/auth';
 import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
-import FirebaseContext, { contextData } from '@/context/firebaseContext';
-import { useContext } from 'react';
+import ChatRoom from '../components/ChatRoom';
 
-import ChatRoom from '@/components/ChatRoom';
-
-const _app = initializeApp({
+const app = initializeApp({
   apiKey: process.env.NEXT_PUBLIC_APIKEY,
   authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
   projectId: process.env.NEXT_PUBLIC_PROJECTID,
@@ -18,14 +14,11 @@ const _app = initializeApp({
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
   appId: process.env.NEXT_PUBLIC_APPID,
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENTID,
-})
-
+});
 
 export default function Home() {
-  const { getFirebaseApp } = useContext(FirebaseContext) as contextData;
-  //const app = getFirebaseApp();
 
-  const auth = getAuth(_app);
+  const auth = getAuth(app);
 
   const [user, loading, error] = useAuthState(auth);
 
@@ -38,15 +31,14 @@ export default function Home() {
       </Head>
       <section className='bg-blue-500'>
         <p>{user?.email}</p>
-        { user ? <ChatRoom app={_app} /> : <SignIn />}
+        { user ? <ChatRoom app={app} /> : <SignIn />}
       </section>
     </>
   )
 }
 
 function SignIn() {
-  //const { getFirebaseAuth } = useContext(FirebaseContext) as contextData;
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(getAuth(_app));
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(getAuth(app));
 
   return (
     <button className="sign-in" onClick={() => signInWithGoogle()}>Sign in with Google</button>
@@ -54,8 +46,7 @@ function SignIn() {
 }
 
 function Signout() {
-  //const { getFirebaseAuth } = useContext(FirebaseContext) as contextData;
-  const auth = getAuth(_app);
+  const auth = getAuth(app);
 
   return auth.currentUser && (
     <button onClick={() => auth.signOut()}>Sign Out</button>

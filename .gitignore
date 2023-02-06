@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Private enviroment variables
 .env.local
+
+# Used to plan out app
+layout.md

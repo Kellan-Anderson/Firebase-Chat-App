@@ -1,7 +1,6 @@
-import { useContext, useRef, useState, FormEvent } from "react";
+import { useRef, useState, FormEvent } from "react";
 import { collection, query, orderBy, limit, addDoc, Timestamp, getFirestore } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import FirebaseContext from "@/context/firebaseContext";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ChatMessage from "./ChatMessage";
 import { FirebaseApp } from "firebase/app";
@@ -12,10 +11,6 @@ interface fireApp {
 }
 
 export default function ChatRoom({app}: fireApp) {
-    // Context functions
-    //const { getFirebaseFirestore, getFirebaseAuth } = useContext(FirebaseContext);
-    // Firestore
-    //const firestore = getFirebaseFirestore();
 
    const firestore = getFirestore(app)
 
@@ -23,7 +18,6 @@ export default function ChatRoom({app}: fireApp) {
     const q = query(col, orderBy('createdAt'), limit(25));
 
     // Auth
-    //const auth = getFirebaseAuth();
     const auth = getAuth(app);
     const [user, userLoading, userError] = useAuthState(auth);
 
