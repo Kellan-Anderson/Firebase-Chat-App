@@ -29,8 +29,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className='bg-blue-500'>
-        <p>{user?.email}</p>
+      <p>{user?.email}</p>
+      <section className='bg-blue-300 grid grid-cols-1 md:grid-cols-3'>
         { user ? <ChatRoom app={app} /> : <SignIn />}
       </section>
     </>
